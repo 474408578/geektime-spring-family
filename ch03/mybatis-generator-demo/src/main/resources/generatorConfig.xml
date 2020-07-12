@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="H2Tables" targetRuntime="MyBatis3">
+        <!--内置的插件，注意配置文件内的内容是有顺序的-->
+        <!--builder-->
+        <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin" />
+        <!--tosString-->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <!--序列化-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!--分页-->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <!--context配置-->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:mem:testdb"
+                        userId="sa"
+                        password="">
+        </jdbcConnection>
+        <!--目标项目，目标文件夹需要提前存在-->
+        <javaModelGenerator targetPackage="geektime.spring.data.mybatis.model"
+                            targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="geektime.spring.data.mybatis.mapper"
+                         targetProject="./src/main/resources/mapper">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--混合配置（注解+xml）-->
+        <javaClientGenerator type="MIXEDMAPPER"
+                             targetPackage="geektime.spring.data.mybatis.mapper"
+                             targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table tableName="t_coffee" domainObjectName="Coffee" >
+            <generatedKey column="id" sqlStatement="CALL IDENTITY()" identity="true" />
+            <columnOverride column="price" javaType="org.joda.money.Money" jdbcType="BIGINT"
+                            typeHandler="geektime.spring.data.mybatis.handler.MoneyTypeHandler"/>
+        </table>
+    </context>
+</generatorConfiguration>

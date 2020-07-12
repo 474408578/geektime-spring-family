@@ -1,0 +1,20 @@
+代码没看懂
+    @Bean
+    @ConfigurationProperties("foo.datasource")
+    public DataSourceProperties fooDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Bean
+    public DataSource fooDataSource() {
+        DataSourceProperties dataSourceProperties = fooDataSourceProperties();
+        log.info(dataSourceProperties.toString());
+        log.info("foo datasource: {}", dataSourceProperties.getUrl());
+        return dataSourceProperties.initializeDataSourceBuilder().build();
+    }
+
+    @Bean
+    @Resource
+    public PlatformTransactionManager fooTxManager(DataSource fooDataSource) {
+        return new DataSourceTransactionManager(fooDataSource);
+    }
