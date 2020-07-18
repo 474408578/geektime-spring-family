@@ -1,0 +1,39 @@
+# 进入到容器中
+docker exec -it mongo bash
+
+# 登录到MongoDB中
+mongo -u admin -p admin
+
+# 显示数据库
+show dbs
+
+# 创建一个数据库
+use springbucks
+
+# 创建用户
+db.createUser(
+    {
+        user: "springbucks",
+        pwd: "springbucks",
+        roles:
+        [
+            { role: "readWrite", db: "springbucks" }
+        ]
+    }
+)
+
+# 查看用户
+show users
+
+# 查看collection
+show collections
+
+# 查看collections有哪些内容，总的记录数
+db.coffee.find();
+db.coffee.count();
+
+
+# 删除一个object
+db.coffee.remove({"name": "espresso"})
+
+#

@@ -10,14 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-//
 @Document
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Coffee {
-    // 以id为主键
     @Id
     private String id;
     private String name;

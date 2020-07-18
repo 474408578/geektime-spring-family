@@ -35,6 +35,7 @@ public class MongoDemoApplication implements ApplicationRunner {
 		SpringApplication.run(MongoDemoApplication.class, args);
 	}
 
+	// 定制自己的MongoCustomConversions
 	@Bean
 	public MongoCustomConversions mongoCustomConversions() {
 		return new MongoCustomConversions(Arrays.asList(new MoneyReadConverter()));
