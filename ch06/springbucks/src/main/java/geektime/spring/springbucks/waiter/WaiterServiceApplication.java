@@ -36,8 +36,8 @@ public class WaiterServiceApplication implements WebMvcConfigurer {
 	@Bean
 	public Jackson2ObjectMapperBuilderCustomizer jacksonBuilderCustomizer() {
 		return builder -> {
-			builder.indentOutput(true);
-			builder.timeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+			builder.indentOutput(true);  // 缩进
+			builder.timeZone(TimeZone.getTimeZone("Asia/Shanghai")); // 时间使用上海的时区
 		};
 	}
 }

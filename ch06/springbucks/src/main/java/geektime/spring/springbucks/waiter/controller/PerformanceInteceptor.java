@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 public class PerformanceInteceptor implements HandlerInterceptor {
+
     private ThreadLocal<StopWatch> stopWatch = new ThreadLocal<>();
 
     @Override
@@ -37,9 +38,13 @@ public class PerformanceInteceptor implements HandlerInterceptor {
             String methodName = ((HandlerMethod) handler).getMethod().getName();
             method = beanType + "." + methodName;
         }
-        log.info("{};{};{};{};{}ms;{}ms;{}ms", request.getRequestURI(), method,
-                response.getStatus(), ex == null ? "-" : ex.getClass().getSimpleName(),
-                sw.getTotalTimeMillis(), sw.getTotalTimeMillis() - sw.getLastTaskTimeMillis(),
+        log.info("{};{};{};{};{}ms;{}ms;{}ms",
+                request.getRequestURI(),
+                method,
+                response.getStatus(),
+                ex == null ? "-" : ex.getClass().getSimpleName(),
+                sw.getTotalTimeMillis(),
+                sw.getTotalTimeMillis() - sw.getLastTaskTimeMillis(),
                 sw.getLastTaskTimeMillis());
         stopWatch.remove();
     }
