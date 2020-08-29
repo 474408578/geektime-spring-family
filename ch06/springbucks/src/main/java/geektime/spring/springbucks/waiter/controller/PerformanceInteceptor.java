@@ -44,8 +44,8 @@ public class PerformanceInteceptor implements HandlerInterceptor {
                 response.getStatus(),
                 ex == null ? "-" : ex.getClass().getSimpleName(),
                 sw.getTotalTimeMillis(),
-                sw.getTotalTimeMillis() - sw.getLastTaskTimeMillis(),
-                sw.getLastTaskTimeMillis());
+                sw.getTotalTimeMillis() - sw.getLastTaskTimeMillis(), // preHandle到postHandle的时间
+                sw.getLastTaskTimeMillis()); // postHandle到afterCompletion的耗时
         stopWatch.remove();
     }
 }
