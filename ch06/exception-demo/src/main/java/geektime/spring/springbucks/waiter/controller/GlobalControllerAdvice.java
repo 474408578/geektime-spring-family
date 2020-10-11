@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @ControllerAdvice 用于修饰类，表示该类是Controller的全局配置类。在此类中，可以对Controller进行如下三种全局配置：
+ *
+ * @ControllerAdvice 这个注解会监听所有的controller，用于修饰类，表示该类是Controller的全局配置类。
+ * 在此类中，可以对Controller进行如下三种全局配置：
  * 异常处理方案，绑定数据方案，绑定参数方案
  *
  * @ExceptionHander: 用于修饰方法，该方法会在Controller出现异常后被调用，用于处理捕获到的异常。

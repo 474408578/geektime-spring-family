@@ -1,7 +1,7 @@
 package geektime.spring.springbucks.waiter;
 
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import geektime.spring.springbucks.waiter.controller.PerformanceInteceptor;
+import geektime.spring.springbucks.waiter.controller.PerformanceInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -22,9 +22,12 @@ public class WaiterServiceApplication implements WebMvcConfigurer {
 		SpringApplication.run(WaiterServiceApplication.class, args);
 	}
 
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new PerformanceInteceptor())
+		// addInterceptor 注册拦截器
+		// addPathPatterns 拦截规则
+		registry.addInterceptor(new PerformanceInterceptor())
 				.addPathPatterns("/coffee/**").addPathPatterns("/order/**");
 	}
 

@@ -36,6 +36,9 @@ public class CoffeeController {
     @Autowired
     private CoffeeService coffeeService;
 
+
+    // consumes 指定请求中accept-type，只有匹配才处理请求
+    // produces 指定响应类型，accept-type的响应是哪种
     @PostMapping(path = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Coffee addCoffeeWithoutBindingResult(@Valid NewCoffeeRequest newCoffee) {
