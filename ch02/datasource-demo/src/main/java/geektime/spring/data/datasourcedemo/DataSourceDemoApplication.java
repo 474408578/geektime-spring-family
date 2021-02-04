@@ -1,5 +1,6 @@
 package geektime.spring.data.datasourcedemo;
 
+import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,9 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * @see HikariDataSource#toString()
+ */
 
 @SpringBootApplication
 @Slf4j
@@ -37,7 +41,7 @@ public class DataSourceDemoApplication implements CommandLineRunner {
 	private void showConnection() throws SQLException {
 		// 此处需要在idea中引入lombok插件，防止变红。
 		log.info(dataSource.toString());
-		// 取一个连接出来
+		// 取一个连接出来 HikariProxyConnection
 		Connection conn = dataSource.getConnection();
 		log.info(conn.toString());
 		conn.close();

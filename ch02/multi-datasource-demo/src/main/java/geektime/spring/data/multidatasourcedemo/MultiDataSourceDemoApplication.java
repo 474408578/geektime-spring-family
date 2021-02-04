@@ -15,7 +15,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-// 排除spring的自动配置
+// 排除 SpringBoot 的自动配置
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class,
         JdbcTemplateAutoConfiguration.class})
@@ -66,4 +66,3 @@ public class MultiDataSourceDemoApplication {
         return new DataSourceTransactionManager(barDataSource);
     }
 }
-
