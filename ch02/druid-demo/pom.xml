@@ -50,6 +50,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- 使用druid数据源 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>

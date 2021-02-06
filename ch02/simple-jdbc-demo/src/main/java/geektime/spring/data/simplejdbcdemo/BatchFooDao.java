@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -24,12 +25,16 @@ public class BatchFooDao {
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setString(1, "b-" + i);
+                        List<String> list = new ArrayList<>();
+                        Arrays.asList("aaa", "bbb", "ccc").forEach(s -> list.add(s));
+                        // 设置字段的值，使用list
+                        ps.setString(1, list.get(i));
                     }
 
+                    // 设置大小 = i + 1
                     @Override
                     public int getBatchSize() {
-                        return 2;
+                        return 3;
                     }
                 });
 

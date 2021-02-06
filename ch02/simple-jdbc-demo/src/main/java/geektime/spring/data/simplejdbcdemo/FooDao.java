@@ -28,6 +28,7 @@ public class FooDao {
 
         HashMap<String, String> row = new HashMap<>();
         row.put("BAR", "d");
+        // 返回一个插入后的主键id
         Number id = simpleJdbcInsert.executeAndReturnKey(row);
         log.info("ID of d: {}", id.longValue());
     }
@@ -40,6 +41,7 @@ public class FooDao {
         list.forEach(s -> log.info("Bar: {}", s));
 
         List<Foo> fooList = jdbcTemplate.query("SELECT * FROM FOO", new RowMapper<Foo>() {
+            // ResultSet --> Foo
             @Override
             public Foo mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return Foo.builder()

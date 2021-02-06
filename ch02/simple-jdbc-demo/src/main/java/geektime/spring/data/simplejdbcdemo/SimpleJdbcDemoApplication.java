@@ -25,14 +25,15 @@ public class SimpleJdbcDemoApplication implements CommandLineRunner {
     }
 
     @Bean
-    @Autowired
+    @Autowired // 构造器注入 jdbcTemplate
     public SimpleJdbcInsert simpleJdbcInsert(JdbcTemplate jdbcTemplate) {
+        // 指定SimpleJdbcInsert与FOO表关联
         return new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("FOO").usingGeneratedKeyColumns("ID");
     }
 
     @Bean
-    @Autowired
+    @Autowired // 构造器注入 dataSource
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
     }
@@ -43,6 +44,5 @@ public class SimpleJdbcDemoApplication implements CommandLineRunner {
         batchFooDao.batchInsert();
         fooDao.listData();
     }
-
 }
 

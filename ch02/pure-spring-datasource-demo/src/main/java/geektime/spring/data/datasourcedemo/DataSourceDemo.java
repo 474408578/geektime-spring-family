@@ -17,6 +17,9 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Properties;
 
+/**
+ * 不使用SpringBoot 自动配置，自己配置数据源属性
+ */
 @Configuration
 @EnableTransactionManagement
 public class DataSourceDemo {
@@ -30,7 +33,7 @@ public class DataSourceDemo {
         dataSourceDemo(applicationContext);
     }
 
-    // 如果不使用applicationContext.xml的配置，也可以使用下面的配置类来配置
+    // 如果不使用applicationContext.xml的配置，也可以使用下面的配置类来配置 DataSource
 //    @Bean(destroyMethod = "close")
 //    public DataSource dataSource() throws Exception {
 //        Properties properties = new Properties();
@@ -40,6 +43,7 @@ public class DataSourceDemo {
 //        return BasicDataSourceFactory.createDataSource(properties);
 //    }
 
+    // 配置 TransactionManager
 //    @Bean
 //    public PlatformTransactionManager transactionManager() throws Exception {
 //        return new DataSourceTransactionManager(dataSource());

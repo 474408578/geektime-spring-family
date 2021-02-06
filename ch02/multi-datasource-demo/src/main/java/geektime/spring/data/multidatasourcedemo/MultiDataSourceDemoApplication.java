@@ -15,7 +15,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-// 排除 SpringBoot 的自动配置
+/**
+ * 配置多数据源示例
+ */
+
+// 首先 排除 SpringBoot 的自动配置
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class,
         JdbcTemplateAutoConfiguration.class})
@@ -26,12 +30,14 @@ public class MultiDataSourceDemoApplication {
         SpringApplication.run(MultiDataSourceDemoApplication.class, args);
     }
 
+    // 生成fooDataProperties
     @Bean
-    @ConfigurationProperties("foo.datasource")
+    @ConfigurationProperties("foo.datasource") // 绑定 application.properties 中 foo.datasource前缀的属性
     public DataSourceProperties fooDataSourceProperties() {
         return new DataSourceProperties();
     }
 
+    // fooDataSource 配置源
     @Bean
     public DataSource fooDataSource() {
         DataSourceProperties dataSourceProperties = fooDataSourceProperties();
@@ -40,6 +46,11 @@ public class MultiDataSourceDemoApplication {
         return dataSourceProperties.initializeDataSourceBuilder().build();
     }
 
+    /**
+     * 配置 fooTxManager
+     * @param fooDataSource
+     * @return
+     */
     @Bean
     @Resource
     public PlatformTransactionManager fooTxManager(DataSource fooDataSource) {
@@ -52,6 +63,7 @@ public class MultiDataSourceDemoApplication {
         return new DataSourceProperties();
     }
 
+    // barDataSource 数据源
     @Bean
     public DataSource barDataSource() {
         DataSourceProperties dataSourceProperties = barDataSourceProperties();

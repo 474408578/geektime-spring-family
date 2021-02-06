@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -15,6 +18,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
+ * SpringBoot 通过 {@link DataSourceAutoConfiguration} 配置 DataSource
+ * SpringBoot 通过 {@link DataSourceTransactionManagerAutoConfiguration} 配置 DataSourceTransactionManager
+ * SpringBoot 通过 {@link JdbcTemplateAutoConfiguration} 配置JdbcTemplate
+ * @see DataSourceAutoConfiguration
  * @see HikariDataSource#toString()
  */
 

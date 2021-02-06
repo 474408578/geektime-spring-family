@@ -7,6 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Properties;
 
+/**
+ * 定制化Filter操作
+ * 需要修改 META-INF/druid-filter.properties 增加 Filter 配置
+ */
+
 @Slf4j
 public class ConnectionLogFilter extends FilterEventAdapter {
 
