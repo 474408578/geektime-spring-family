@@ -55,7 +55,7 @@ public class CustomerServiceApplication implements ApplicationRunner {
 
 		String coffeeUri = "http://localhost:8080/coffee/";
 		Coffee request = Coffee.builder()
-				.name("Americano")
+//				.name("Americano")
 				.price(BigDecimal.valueOf(25.00))
 				.build();
 		// 发起post请求，获取coffee对象

@@ -17,6 +17,6 @@ public class Coffee implements Serializable {
     private Long id;
     private String name;
     private BigDecimal price; // 先用BigDecimal，下次换Money
-    private Date createTime;
+//    private Date createTime;
     private Date updateTime;
 }
