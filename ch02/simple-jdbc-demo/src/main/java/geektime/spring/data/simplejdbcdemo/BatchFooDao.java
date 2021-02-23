@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @see PreparedStatement
+ */
+
 @Repository
 public class BatchFooDao {
     @Autowired
@@ -22,6 +26,7 @@ public class BatchFooDao {
 
     public void batchInsert() {
         jdbcTemplate.batchUpdate("INSERT INTO FOO (BAR) VALUES (?)",
+                // 设置批处理的属性
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -43,6 +48,7 @@ public class BatchFooDao {
         list.add(Foo.builder().id(101L).bar("b-101").build());
         namedParameterJdbcTemplate
                 .batchUpdate("INSERT INTO FOO (ID, BAR) VALUES (:id, :bar)",
+                        // 设置批处理的属性
                         SqlParameterSourceUtils.createBatch(list));
     }
 }

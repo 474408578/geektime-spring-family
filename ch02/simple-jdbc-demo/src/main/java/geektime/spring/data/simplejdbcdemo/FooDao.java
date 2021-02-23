@@ -2,6 +2,7 @@ package geektime.spring.data.simplejdbcdemo;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -12,6 +13,10 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+/**
+ * @see BeanPropertyRowMapper
+ */
 
 @Slf4j
 @Repository
@@ -41,7 +46,7 @@ public class FooDao {
         list.forEach(s -> log.info("Bar: {}", s));
 
         List<Foo> fooList = jdbcTemplate.query("SELECT * FROM FOO", new RowMapper<Foo>() {
-            // ResultSet --> Foo
+            // ResultSet(操作结果集) --> Foo (ResultSet 转换为 Foo)
             @Override
             public Foo mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return Foo.builder()
@@ -50,6 +55,11 @@ public class FooDao {
                         .build();
             }
         });
+
+        // 使用 BeanPropertyRowMapper
+//        List<Foo> fooList = jdbcTemplate.query("select * from FOO",
+//                new BeanPropertyRowMapper<>(Foo.class));
+
         fooList.forEach(f -> log.info("Foo: {}", f));
     }
 }

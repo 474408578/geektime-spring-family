@@ -27,7 +27,7 @@ public class SimpleJdbcDemoApplication implements CommandLineRunner {
     @Bean
     @Autowired // 构造器注入 jdbcTemplate
     public SimpleJdbcInsert simpleJdbcInsert(JdbcTemplate jdbcTemplate) {
-        // 指定SimpleJdbcInsert与FOO表关联
+        // 指定 SimpleJdbcInsert 与 FOO 表 关联
         return new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("FOO").usingGeneratedKeyColumns("ID");
     }
@@ -40,8 +40,8 @@ public class SimpleJdbcDemoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        fooDao.insertData();
-        batchFooDao.batchInsert();
+        fooDao.insertData();
+//        batchFooDao.batchInsert();
         fooDao.listData();
     }
 }
