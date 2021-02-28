@@ -25,11 +25,25 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class CoffeeOrder implements Serializable {
+    /**
+     * create table t_order (
+     *         id bigint not null,
+     *         create_time timestamp,
+     *         customer varchar(255),
+     *         state integer not null,
+     *         update_time timestamp,
+     *         primary key (id)
+     *     )
+     */
+
     @Id
     @GeneratedValue
     private Long id;
     private String customer;
 
+    /**
+     * coffee 与 order 之间的关系是通过T_ORDER_COFFEE 这张映射表来做的
+     */
     @ManyToMany
     @JoinTable(name = "T_ORDER_COFFEE")
     private List<Coffee> items;

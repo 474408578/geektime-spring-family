@@ -24,12 +24,26 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Coffee implements Serializable {
+    /**
+     * create table t_menu (
+     *         id bigint not null,
+     *         create_time timestamp,
+     *         name varchar(255),
+     *         price decimal(19,2),
+     *         update_time timestamp,
+     *         primary key (id)
+     *     )
+     */
+
     @Id
     @GeneratedValue
     private Long id;
 
     private String name;
 
+    /**
+     * money到数字的映射
+     */
     @Column
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmount",
             parameters = {@org.hibernate.annotations.Parameter(name = "currencyCode", value = "CNY")})

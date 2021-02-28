@@ -25,7 +25,7 @@ public class FooServiceImpl implements FooService {
         jdbcTemplate.execute("INSERT INTO FOO (BAR) VALUES ('AAA')");
     }
 
-    // rollbackException抛出这个异常时执行回滚
+    // rollbackException 抛出这个异常时执行回滚
     @Override
     @Transactional(rollbackFor = RollbackException.class)
     public void insertThenRollback() throws RollbackException {
