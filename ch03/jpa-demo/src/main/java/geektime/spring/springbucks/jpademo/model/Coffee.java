@@ -34,13 +34,10 @@ public class Coffee implements Serializable {
      *         primary key (id)
      *     )
      */
-
     @Id
     @GeneratedValue
     private Long id;
-
     private String name;
-
     /**
      * money到数字的映射
      */
@@ -48,11 +45,9 @@ public class Coffee implements Serializable {
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmount",
             parameters = {@org.hibernate.annotations.Parameter(name = "currencyCode", value = "CNY")})
     private Money price;
-
     @Column(updatable = false)
     @CreationTimestamp
     private Date createTime;
-
     @UpdateTimestamp
     private Date updateTime;
 }

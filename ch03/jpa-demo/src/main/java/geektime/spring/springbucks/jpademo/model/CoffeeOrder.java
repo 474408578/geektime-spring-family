@@ -42,7 +42,7 @@ public class CoffeeOrder implements Serializable {
     private String customer;
 
     /**
-     * coffee 与 order 之间的关系是通过T_ORDER_COFFEE 这张映射表来做的
+     * coffee 与 order 之间的关系是通过 T_ORDER_COFFEE 这张映射表来做的
      */
     @ManyToMany
     @JoinTable(name = "T_ORDER_COFFEE")

@@ -38,7 +38,7 @@ public class JpaDemoApplication implements ApplicationRunner {
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
 	public void run(ApplicationArguments args) throws Exception {
 		initOrders();
 		findOrders();
@@ -86,6 +86,11 @@ public class JpaDemoApplication implements ApplicationRunner {
 		log.info("findByCustomerOrderById: {}", getJoinedOrderId(list));
 
 		// 不开启事务会因为没Session而报LazyInitializationException
+		// 这里的集合Hibernate给我们做了个LazyLoading的优化，
+		// 在使用时才会去加载，没有事务时findByCustomerOrderById操作后连接就还回去了，Session也关了，
+		// 后面访问items时自然就没有Session报错了。
+		// 加了事务，连接在我提交或者回滚前都会持有，Session也在，自然就不会报错了。
+		// 也可以设置@ManyToMany的fetch，默认是LAZY。
 		list.forEach(o -> {
 			log.info("Order {}", o.getId());
 			o.getItems().forEach(i -> log.info("  Item {}", i));
