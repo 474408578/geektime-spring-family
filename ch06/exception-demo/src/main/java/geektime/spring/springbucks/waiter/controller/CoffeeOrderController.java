@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/order")
 @Slf4j
 public class CoffeeOrderController {
+
     @Autowired
     private CoffeeOrderService orderService;
+
     @Autowired
     private CoffeeService coffeeService;
 
@@ -31,7 +33,8 @@ public class CoffeeOrderController {
         return orderService.get(id);
     }
 
-    @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(path = "/",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public CoffeeOrder create(@RequestBody NewOrderRequest newOrder) {

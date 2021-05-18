@@ -13,6 +13,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.TimeZone;
 
+/**
+ * @see WebMvcConfigurer#addInterceptors(InterceptorRegistry)
+ */
+
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableCaching
@@ -28,7 +32,8 @@ public class WaiterServiceApplication implements WebMvcConfigurer {
 		// addInterceptor 注册拦截器
 		// addPathPatterns 拦截规则
 		registry.addInterceptor(new PerformanceInterceptor())
-				.addPathPatterns("/coffee/**").addPathPatterns("/order/**");
+				.addPathPatterns("/coffee/**")
+				.addPathPatterns("/order/**");
 	}
 
 	@Bean

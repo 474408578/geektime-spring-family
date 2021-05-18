@@ -9,6 +9,7 @@ import org.joda.money.Money;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @JsonComponent
 public class MoneyDeserializer extends StdDeserializer<Money> {
@@ -17,7 +18,10 @@ public class MoneyDeserializer extends StdDeserializer<Money> {
     }
 
     @Override
-    public Money deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Money deserialize(JsonParser p, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        // 可接收 String 类型
+        //return Money.of(CurrencyUnit.of("CNY"), Double.valueOf(p.getText()));
+        // 接收 Number 类型
         return Money.of(CurrencyUnit.of("CNY"), p.getDecimalValue());
     }
 }

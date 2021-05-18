@@ -22,8 +22,8 @@ public class WaiterServiceApplication {
 		return new Hibernate5Module();
 	}
 
-//	@Bean
-//	public Jackson2ObjectMapperBuilderCustomizer jacksonBuilderCustomizer() {
-//		return builder -> builder.indentOutput(true);
-//	}
+	@Bean
+	public Jackson2ObjectMapperBuilderCustomizer jacksonBuilderCustomizer() {
+		return builder -> builder.indentOutput(true);
+	}
 }

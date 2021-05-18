@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
+ * 父 Spring 上下文的配置
  * @author xschen
  */
 
@@ -15,19 +16,16 @@ public class FooConfig {
 
     @Bean
     public TestBean testBeanX() {
-//        return new TestBean("foo");
         return new TestBean("parentX");
     }
 
     @Bean
     public TestBean testBeanY() {
-//        return new TestBean("foo");
         return new TestBean("parentY");
     }
 
-    // 对foo进行aop增强
-    @Bean
-    public FooAspect fooAspect() {
-        return new FooAspect();
-    }
+    //@Bean
+    //public FooAspect fooAspect() {
+    //    return new FooAspect();
+    //}
 }

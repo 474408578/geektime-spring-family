@@ -11,8 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @ControllerAdvice 这个注解会监听所有的controller，用于修饰类，表示该类是Controller的全局配置类。
+ * @ControllerAdvice: 这个注解会监听所有的controller，用于修饰类，表示该类是Controller的全局配置类。
  * 在此类中，可以对Controller进行如下三种全局配置：
  * 异常处理方案，绑定数据方案，绑定参数方案
  *
@@ -20,10 +19,9 @@ import java.util.Map;
  *
  * @ModelAttibute: 用于修饰方法，该方法会在Controller方法执行前被调用，用于为Model对象绑定参数。
  *
- * @DataBinder：用于修饰方法，该方法会在Controller方法执行前被调用，用于绑定参数的转换器。
- *
- *
+ * @DataBinder: 用于修饰方法，该方法会在Controller方法执行前被调用，用于绑定参数的转换器。
  */
+
 @RestControllerAdvice
 public class GlobalControllerAdvice {
 

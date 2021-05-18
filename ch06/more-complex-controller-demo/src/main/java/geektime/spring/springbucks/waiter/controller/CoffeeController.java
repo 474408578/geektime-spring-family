@@ -35,7 +35,7 @@ public class CoffeeController {
     @Autowired
     private CoffeeService coffeeService;
 
-    // 自行处理BindingResult示例
+    // 自行处理 BindingResult 示例
 //    @PostMapping(path = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 //    @ResponseBody
 //    @ResponseStatus(HttpStatus.CREATED)
@@ -60,7 +60,7 @@ public class CoffeeController {
     @PostMapping(path = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Coffee> batchAddCoffee(@RequestParam("file")MultipartFile file) {
+    public List<Coffee> batchAddCoffee(@RequestParam("file") MultipartFile file) {
         List<Coffee> coffees = new ArrayList<>();
         if (!file.isEmpty()) {
             BufferedReader reader = null;

@@ -34,7 +34,7 @@ public class PerformanceInterceptor implements HandlerInterceptor {
                            Object handler,
                            ModelAndView modelAndView) throws Exception {
         stopWatch.get().stop();
-        stopWatch.get().start();
+        stopWatch.get().start(); //
     }
 
     @Override
@@ -62,6 +62,13 @@ public class PerformanceInterceptor implements HandlerInterceptor {
         stopWatch.remove();
     }
     /**
-     * 2020-10-11 16:28:45.974  INFO 4420 --- [nio-8080-exec-2] g.s.s.w.c.PerformanceInterceptor         : /order/;geektime.spring.springbucks.waiter.controller.CoffeeOrderController.create;201;-;718ms;718ms;0ms
+     * 2020-10-11 16:28:45.974  INFO 4420 --- [nio-8080-exec-2] g.s.s.w.c.PerformanceInterceptor :
+     * /order/;
+     * geektime.spring.springbucks.waiter.controller.CoffeeOrderController.create;
+     * 201;
+     * -;
+     * 718ms;
+     * 718ms;
+     * 0ms
      */
 }

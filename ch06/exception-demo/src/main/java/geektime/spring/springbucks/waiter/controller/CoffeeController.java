@@ -34,6 +34,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * accept：希望接收的类型
+ * content-type：发送的实体数据类型
+ */
+
 @Controller
 @RequestMapping("/coffee")
 @Slf4j
@@ -41,11 +46,16 @@ public class CoffeeController {
     @Autowired
     private CoffeeService coffeeService;
 
+    /**
+     * 表单类型提交数据，使用 @Valid 绑定认证，BindingResult 绑定结果，是否有 errors
+     * @param newCoffee
+     * @param result
+     * @return
+     */
     @PostMapping(path = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public Coffee addCoffee(@Valid NewCoffeeRequest newCoffee,
-                            BindingResult result) {
+    public Coffee addCoffee(@Valid NewCoffeeRequest newCoffee, BindingResult result) {
         if (result.hasErrors()) {
             log.warn("Binding Errors: {}", result);
             throw new FormValidationException(result);
@@ -53,6 +63,12 @@ public class CoffeeController {
         return coffeeService.saveCoffee(newCoffee.getName(), newCoffee.getPrice());
     }
 
+    /**
+     * 自定义异常处理
+     * @param newCoffee
+     * @param result
+     * @return
+     */
     @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
@@ -60,26 +76,17 @@ public class CoffeeController {
                                 BindingResult result) {
         if (result.hasErrors()) {
             log.warn("Binding Errors: {}", result);
-            // 自己对ValidationExceptionHandler做了处理，在GlobalControllerAdvice中
+            // 对 ValidationExceptionHandler 做了处理，在 GlobalControllerAdvice 中
             throw new ValidationException(result.toString());
         }
         return coffeeService.saveCoffee(newCoffee.getName(), newCoffee.getPrice());
     }
 
-//    @PostMapping(path = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Coffee addCoffeeWithoutBindingResult(@Valid NewCoffeeRequest newCoffee) {
-//        return coffeeService.saveCoffee(newCoffee.getName(), newCoffee.getPrice());
-//    }
-
-//    @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Coffee addJsonCoffeeWithoutBindingResult(@Valid @RequestBody NewCoffeeRequest newCoffee) {
-//        return coffeeService.saveCoffee(newCoffee.getName(), newCoffee.getPrice());
-//    }
-
+    /**
+     * 文件上传
+     * @param file
+     * @return
+     */
     @PostMapping(path = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)

@@ -16,10 +16,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * FooConfig.java : 父上下文（parent application context）
  * applicationContext.xml: 子上下文（child application context）
- * FooConfig.java中定义两个testBean，分别为testBeanX(foo), testBeanY(foo)
- * applicationConrext.xml中定义了一个testBeanX(bar)
  *
- * 委托机制：在自己的context中找不到bean，就会委托父context查找该bean
+ * 委托机制：在自己的context中找不到bean，就会委托父 context 查找该 bean
  *
  * 场景一：
  * 父上下文开启 @EnableAspectJAutoProxy 的支持
@@ -27,31 +25,33 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * 切面 fooAspect 在 FooConfig.java 定义（父上下文增强）
  *
  * 输出结果：
- * testBeanX(foo) 和 testBeanY(foo) 均被增强。
- * testBeanX(bar) 未被增强。
+ * testBeanX(parentX) 和 testBeanY(parentY) 均被增强。
+ * testBeanX(childX) 未被增强。
  *
  * 结论：
  * 在父上下文开启了增强，父的 bean 均被增强，而子的 bean 未被增强。
  *
- * ----------
+ * -------------------------------------------------------------
  *
  * 场景二：
  * 父上下文开启 @EnableAspectJAutoProxy 的支持
  * 子上下文开启 <aop: aspectj-autoproxy />
- * 切面 fooAspect 在 applicationContext.xml 定义（子上下文增加）
+ * 切面 fooAspect 在 applicationContext.xml 定义（子上下文）
  *
  * 输出结果：
- * testBeanX(foo) 和 testBeanY(foo) 未被增强。
- * testBeanX(bar) 被增强。
+ * testBeanX(parentX) 和 testBeanY(parentY) 未被增强。
+ * testBeanX(childX) 被增强。
  *
  * 结论：
- * 在子上下文开启增强，父的 bean 未被增强，子的 bean 被增强。
+ * 在子上下文开启增强，父上下文中不开启增强，只有子上下文中被增强
  *
- * ----------
+ * -----------------------------------------------------------
+ * 场景三：
+ * 父上下文开启 @EnableAspectJAutoProxy 的支持
+ * 子上下文开启 <aop: aspectj-autoproxy />
+ * 切面 fooAspect 在 FooConfig.xml 定义（父上下文）
  *
- * 根据场景一和场景二的结果，有结论：“各个 context 相互独立，每个 context 的 aop 增强只对本 context 的 bean 生效”。如果想将切面配置成通用的，对父和子上下文的 bean 均支持增强，则：
- * 1. 切面 fooAspect 定义在父上下文。
- * 2. 父上下文和子上下文，均要开启 aop 的增加，即 @EnableAspectJAutoProxy 或<aop: aspectj-autoproxy /> 的支持。
+ *
  */
 
 @SpringBootApplication
@@ -62,23 +62,24 @@ public class ContextHierarchyDemoApplication implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        ApplicationContext fooContext = new AnnotationConfigApplicationContext(FooConfig.class);
-        // fooContext作为parentContext
-        ClassPathXmlApplicationContext barContext = new ClassPathXmlApplicationContext(
-                new String[] {"applicationContext.xml"}, fooContext);
+    public void run(ApplicationArguments args) {
+        // 父 Spring 上下文
+        ApplicationContext parentContext = new AnnotationConfigApplicationContext(FooConfig.class);
+        // 子 Spring 上下文
+        ClassPathXmlApplicationContext childContext = new ClassPathXmlApplicationContext(
+                new String[] {"applicationContext.xml"}, parentContext);
 
-        // 在父上下文中查找testBeanX, 命中直接返回testBeanX(foo)
-        TestBean bean = fooContext.getBean("testBeanX", TestBean.class);
+        // 从父 Spring 上下文中获取testBean，是否被增强（有没有打印出 After Hello）
+        TestBean bean = parentContext.getBean("testBeanX", TestBean.class);
         bean.hello();
         log.info("=====================");
 
-        // 在子上下文中查找testBeanX, 命中直接返回testBeanX(Bar)
-        bean = barContext.getBean("testBeanX", TestBean.class);
+        // 从子 Spring 上下文获取 testBean， 看是否被增强
+        bean = childContext.getBean("testBeanX", TestBean.class);
         bean.hello();
 
-        // 在子上下文中查找testBeanY，未命中；委托父上下文查找，命中，返回testBeanY(foo)
-        bean = barContext.getBean("testBeanY", TestBean.class);
+        // 在子 Spring 上下文中查找testBeanY，未命中；委托父上下文查找，命中，返回testBeanY(foo)
+        bean = childContext.getBean("testBeanY", TestBean.class);
         bean.hello();
     }
 }

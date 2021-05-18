@@ -6,17 +6,21 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.jackson.JsonComponent;
+import org.springframework.boot.jackson.JsonComponentModule;
 
 import java.io.IOException;
 
 /**
  * @author xschen
+ * @see JacksonAutoConfiguration
+ * @see JsonComponentModule // 用于处理 @JsonComponent 注解
  */
 
-@JsonComponent
+@JsonComponent // Spring Boot 通过 @JsonComponent 注册 Json 序列化组件
 public class MoneyDeserializer extends StdDeserializer<Money> {
-    protected MoneyDeserializer(){
+    protected MoneyDeserializer() {
         super(Money.class);
     }
 

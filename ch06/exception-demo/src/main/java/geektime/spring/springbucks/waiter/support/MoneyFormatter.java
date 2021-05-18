@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.util.Locale;
 
+/**
+ * 将 String 类型转化为 Money 类型
+ */
+
 @Component
 public class MoneyFormatter implements Formatter<Money> {
     /**

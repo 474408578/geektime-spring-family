@@ -6,12 +6,14 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-<!--    <aop:aspectj-autoproxy/>-->
+    <!-- 开启AOP的增强  -->
+    <aop:aspectj-autoproxy/>
 
     <bean id="testBeanX" class="geektime.spring.web.context.TestBean">
-<!--        <constructor-arg name="context" value="Bar" />-->
         <constructor-arg name="context" value="childX" />
     </bean>
 
-<!--    <bean id="fooAspect" class="geektime.spring.web.foo.FooAspect" />-->
+
+    <!-- 注入增强的切面 -->
+    <bean id="fooAspect" class="geektime.spring.web.foo.FooAspect" />
 </beans>
